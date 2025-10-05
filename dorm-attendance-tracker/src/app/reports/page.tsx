@@ -22,7 +22,7 @@ export default function ReportsPage() {
     if (savedData) {
       setAttendanceData(savedData);
       // Calculate initial stats for all records
-      const allStats = savedData.students.map(student => 
+      const allStats = savedData.students.map((student: Student) => 
         calculateStudentStats(student, savedData.records)
       );
       setFilteredStats(allStats);
