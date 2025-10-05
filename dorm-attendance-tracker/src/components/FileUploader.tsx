@@ -116,8 +116,8 @@ export default function FileUploader({ onStudentsUploaded, onError }: FileUpload
       
       <div className="mt-4 text-xs text-gray-500">
         <p className="font-medium mb-1">Beklenen dosya formatları:</p>
-        <p>• Excel: "Name" ve "Student ID" sütunları (isteğe bağlı)</p>
-        <p>• JSON: "name" ve "studentId" özellikli nesneler dizisi</p>
+        <p>• Excel: "Name" sütunu</p>
+        <p>• JSON: "name" özellikli nesneler dizisi</p>
       </div>
     </div>
   );

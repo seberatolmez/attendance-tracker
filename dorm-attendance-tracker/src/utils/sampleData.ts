@@ -1,14 +1,14 @@
 import { Student, AttendanceRecord, AttendanceData } from '@/types';
 
 export const sampleStudents: Student[] = [
-  { id: 'student-1', name: 'Ahmet Yılmaz', studentId: 'ST001' },
-  { id: 'student-2', name: 'Ayşe Demir', studentId: 'ST002' },
-  { id: 'student-3', name: 'Mehmet Kaya', studentId: 'ST003' },
-  { id: 'student-4', name: 'Fatma Özkan', studentId: 'ST004' },
-  { id: 'student-5', name: 'Mustafa Çelik', studentId: 'ST005' },
-  { id: 'student-6', name: 'Zeynep Arslan', studentId: 'ST006' },
-  { id: 'student-7', name: 'Yusuf Şahin', studentId: 'ST007' },
-  { id: 'student-8', name: 'Elif Doğan', studentId: 'ST008' },
+  { id: 'student-1', name: 'Ahmet Yılmaz' },
+  { id: 'student-2', name: 'Ayşe Demir' },
+  { id: 'student-3', name: 'Mehmet Kaya' },
+  { id: 'student-4', name: 'Fatma Özkan' },
+  { id: 'student-5', name: 'Mustafa Çelik' },
+  { id: 'student-6', name: 'Zeynep Arslan' },
+  { id: 'student-7', name: 'Yusuf Şahin' },
+  { id: 'student-8', name: 'Elif Doğan' },
 ];
 
 export const sampleAttendanceRecords: AttendanceRecord[] = [

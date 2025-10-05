@@ -5,7 +5,6 @@ import { Student, AttendanceRecord, AttendanceStats, ReportData } from '@/types'
 export const exportStudentsToExcel = (students: Student[]): void => {
   const worksheet = XLSX.utils.json_to_sheet(
     students.map(student => ({
-      'Student ID': student.studentId || '',
       'Name': student.name
     }))
   );
@@ -33,8 +32,8 @@ export const exportAttendanceReportToExcel = (reportData: ReportData): void => {
   reportData.stats.forEach(stat => {
     summaryData.push([
       stat.studentName,
-      stat.totalSessions,
-      stat.attendedSessions,
+      stat.totalSessions.toString(),
+      stat.attendedSessions.toString(),
       `${stat.attendancePercentage}%`
     ]);
   });
@@ -76,8 +75,7 @@ export const parseStudentExcelFile = (file: File): Promise<Student[]> => {
         
         const students: Student[] = jsonData.map((row: any, index: number) => ({
           id: `student-${Date.now()}-${index}`,
-          name: row['Name'] || row['name'] || row['Student Name'] || row['student_name'] || '',
-          studentId: row['Student ID'] || row['student_id'] || row['ID'] || row['id'] || ''
+          name: row['Name'] || row['name'] || row['Student Name'] || row['student_name'] || ''
         })).filter(student => student.name.trim().length > 0);
         
         resolve(students);
@@ -105,8 +103,7 @@ export const parseStudentJsonFile = (file: File): Promise<Student[]> => {
         const students: Student[] = Array.isArray(data) 
           ? data.map((student: any, index: number) => ({
               id: student.id || `student-${Date.now()}-${index}`,
-              name: student.name || '',
-              studentId: student.studentId || student.id || ''
+              name: student.name || ''
             })).filter(student => student.name.trim().length > 0)
           : [];
         
