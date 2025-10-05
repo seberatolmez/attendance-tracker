@@ -1,0 +1,34 @@
+[
+  {
+    "name": "Ahmet Yılmaz",
+    "studentId": "ST001"
+  },
+  {
+    "name": "Ayşe Demir",
+    "studentId": "ST002"
+  },
+  {
+    "name": "Mehmet Kaya",
+    "studentId": "ST003"
+  },
+  {
+    "name": "Fatma Özkan",
+    "studentId": "ST004"
+  },
+  {
+    "name": "Mustafa Çelik",
+    "studentId": "ST005"
+  },
+  {
+    "name": "Zeynep Arslan",
+    "studentId": "ST006"
+  },
+  {
+    "name": "Yusuf Şahin",
+    "studentId": "ST007"
+  },
+  {
+    "name": "Elif Doğan",
+    "studentId": "ST008"
+  }
+]
