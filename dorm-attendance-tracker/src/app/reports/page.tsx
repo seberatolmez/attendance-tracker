@@ -23,10 +23,15 @@ export default function ReportsPage() {
     if (savedData) {
       setAttendanceData(savedData);
       // Calculate initial stats for all records
-      const allStats = savedData.students.map((student: Student) => 
-        calculateStudentStats(student, savedData.records)
-      );
-      setFilteredStats(allStats);
+      try {
+        const allStats = savedData.students.map((student: Student) => 
+          calculateStudentStats(student, savedData.records)
+        );
+        setFilteredStats(allStats);
+      } catch (error) {
+        console.error('Error calculating student stats:', error);
+        setFilteredStats([]);
+      }
     }
     setIsLoading(false);
   }, []);
@@ -41,11 +46,15 @@ export default function ReportsPage() {
     );
     
     // Calculate stats for filtered records
-    const stats = attendanceData.students.map(student => 
-      calculateStudentStats(student, filteredRecords)
-    );
-    
-    setFilteredStats(stats);
+    try {
+      const stats = attendanceData.students.map(student => 
+        calculateStudentStats(student, filteredRecords)
+      );
+      setFilteredStats(stats);
+    } catch (error) {
+      console.error('Error calculating filtered stats:', error);
+      setFilteredStats([]);
+    }
   };
 
   const getOverallStats = () => {
@@ -190,19 +199,19 @@ export default function ReportsPage() {
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
-                      {filteredStats.map((stat) => (
-                        <tr key={stat.studentId}> {/* Assuming studentId is a unique identifier in StudentAttendanceStat */}
+                      {filteredStats.map((stat, index) => (
+                        <tr key={stat.studentId || stat.studentName || index}>
                           <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            {stat.studentName}
+                            {stat.studentName || 'Bilinmeyen Öğrenci'}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
-                            {stat.totalSessions}
+                            {stat.totalSessions || 0}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
-                            {stat.attendedSessions}
+                            {stat.attendedSessions || 0}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
-                            {stat.attendancePercentage.toFixed(1)}%
+                            {(stat.attendancePercentage || 0).toFixed(1)}%
                           </td>
                         </tr>
                       ))}

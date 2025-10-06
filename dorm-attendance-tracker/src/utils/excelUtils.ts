@@ -21,12 +21,12 @@ export const exportAttendanceReportToExcel = (reportData: ReportData): void => {
   
   // Summary sheet
   const summaryData = [
-    ['Dorm Attendance Report'],
-    [`Date Range: ${reportData.dateRange.start} to ${reportData.dateRange.end}`],
-    [`Total Students: ${reportData.totalStudents}`],
-    [`Average Attendance: ${reportData.averageAttendance.toFixed(2)}%`],
+    ['Yurt Devam Raporu'],
+    [`Tarih Aralığı: ${reportData.dateRange.start} to ${reportData.dateRange.end}`],
+    [`Toplam Öğrenci: ${reportData.totalStudents}`],
+    [`Ortalama Devam: ${reportData.averageAttendance.toFixed(2)}%`],
     [''], // Empty row
-    ['Student Name', 'Total Sessions', 'Attended Sessions', 'Attendance %']
+    ['Öğrenci Adı', 'Toplam Oturum', 'Katılım Oturumları', 'Devam %']
   ];
   
   reportData.stats.forEach(stat => {
@@ -39,7 +39,7 @@ export const exportAttendanceReportToExcel = (reportData: ReportData): void => {
   });
   
   const summarySheet = XLSX.utils.aoa_to_sheet(summaryData);
-  XLSX.utils.book_append_sheet(workbook, summarySheet, 'Summary');
+  XLSX.utils.book_append_sheet(workbook, summarySheet, 'Özet');
   
   // Detailed stats sheet
   const detailedData = reportData.stats.map(stat => ({
@@ -50,7 +50,7 @@ export const exportAttendanceReportToExcel = (reportData: ReportData): void => {
   }));
   
   const detailedSheet = XLSX.utils.json_to_sheet(detailedData);
-  XLSX.utils.book_append_sheet(workbook, detailedSheet, 'Detailed Stats');
+  XLSX.utils.book_append_sheet(workbook, detailedSheet, 'Detaylı İstatistikler');
   
   // Generate filename with date range
   const startDate = new Date(reportData.dateRange.start).toLocaleDateString('en-US');

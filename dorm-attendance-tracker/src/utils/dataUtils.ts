@@ -10,6 +10,11 @@ export const calculateStudentStats = (
   student: Student,
   records: AttendanceRecord[]
 ): AttendanceStats => {
+  // Ensure student has required properties
+  if (!student || !student.id || !student.name) {
+    throw new Error('Invalid student data provided');
+  }
+
   const studentRecords = records.filter(record => record.studentId === student.id);
   const totalSessions = studentRecords.length * 2; // morning + evening
   const attendedSessions = studentRecords.reduce((count, record) => {
