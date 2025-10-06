@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { Student } from '@/types';
 
 interface StudentListProps {
@@ -8,6 +9,10 @@ interface StudentListProps {
 }
 
 export default function StudentList({ students, onRemoveStudent }: StudentListProps) {
+  const [showAll, setShowAll] = useState(false);
+  
+  // Show only first 10 students initially, or all if showAll is true
+  const displayedStudents = showAll ? students : students.slice(0, 10);
   if (students.length === 0) {
     return (
       <div className="text-center py-8">
@@ -30,11 +35,11 @@ export default function StudentList({ students, onRemoveStudent }: StudentListPr
   return (
     <div className="space-y-3">
       <h3 className="text-lg font-semibold text-gray-900 mb-4">
-        Öğrenciler ({students.length})
+        Öğrenciler ({students.length > 10 && !showAll ? `10 / ${students.length}` : students.length})
       </h3>
       
       <div className="grid gap-3">
-        {students.map((student) => (
+        {displayedStudents.map((student) => (
           <div
             key={student.id}
             className="flex items-center justify-between p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow"
@@ -69,6 +74,36 @@ export default function StudentList({ students, onRemoveStudent }: StudentListPr
           </div>
         ))}
       </div>
+      
+      {/* Show "Tümünü Gör" button if there are more than 10 students and not showing all */}
+      {students.length > 10 && !showAll && (
+        <div className="mt-6 text-center">
+          <button
+            onClick={() => setShowAll(true)}
+            className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium shadow-sm hover:shadow-md"
+          >
+            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+            Tümünü Gör ({students.length - 10} öğrenci daha)
+          </button>
+        </div>
+      )}
+      
+      {/* Show "Daha Az Göster" button if showing all students and there are more than 10 */}
+      {students.length > 10 && showAll && (
+        <div className="mt-6 text-center">
+          <button
+            onClick={() => setShowAll(false)}
+            className="inline-flex items-center px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors font-medium shadow-sm hover:shadow-md"
+          >
+            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+            </svg>
+            Daha Az Göster
+          </button>
+        </div>
+      )}
     </div>
   );
 }
