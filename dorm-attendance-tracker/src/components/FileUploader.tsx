@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import { Student, FileUploadResult } from '@/types';
+import { Student } from '@/types';
 import { parseStudentExcelFile, parseStudentJsonFile } from '@/utils/excelUtils';
 
 interface FileUploaderProps {
@@ -116,8 +116,8 @@ export default function FileUploader({ onStudentsUploaded, onError }: FileUpload
       
       <div className="mt-4 text-xs text-gray-500">
         <p className="font-medium mb-1">Beklenen dosya formatları:</p>
-        <p>• Excel: "Name" sütunu</p>
-        <p>• JSON: "name" özellikli nesneler dizisi</p>
+        <p>• Excel: &quot;Name&quot; sütunu</p>
+        <p>• JSON: &quot;name&quot; özellikli nesneler dizisi</p>
       </div>
     </div>
   );

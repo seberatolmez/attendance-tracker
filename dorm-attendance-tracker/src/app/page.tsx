@@ -1,13 +1,12 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Student, AttendanceRecord, AttendanceData } from '@/types';
+import { Student, AttendanceData } from '@/types';
 import { 
   initializeAttendanceData, 
   saveToLocalStorage, 
   loadFromLocalStorage, 
   calculateStudentStats,
-  getCurrentDate
 } from '@/utils/dataUtils';
 import { sampleAttendanceData } from '@/utils/sampleData';
 import StudentList from '@/components/StudentList';
@@ -21,7 +20,7 @@ export default function Dashboard() {
 
   // Load data from localStorage on component mount
   useEffect(() => {
-    const savedData = loadFromLocalStorage('dorm-attendance-data');
+    const savedData = loadFromLocalStorage<AttendanceData>('dorm-attendance-data');
     if (savedData) {
       setAttendanceData(savedData);
     }
@@ -221,7 +220,7 @@ export default function Dashboard() {
                 </div>
                 <div>
                   <h3 className="font-medium text-gray-900">Rapor Oluştur</h3>
-                  <p className="text-sm text-gray-500">Devam verilerini Excel'e aktar</p>
+                  <p className="text-sm text-gray-500">Devam verilerini Excel&apos;e aktar</p>
                 </div>
               </a>
 

@@ -48,7 +48,7 @@ export const getStudentRecordForDate = (
 };
 
 // Save data to localStorage
-export const saveToLocalStorage = (key: string, data: any): void => {
+export const saveToLocalStorage = (key: string, data: unknown): void => {
   try {
     localStorage.setItem(key, JSON.stringify(data));
   } catch (error) {
@@ -57,7 +57,7 @@ export const saveToLocalStorage = (key: string, data: any): void => {
 };
 
 // Load data from localStorage
-export const loadFromLocalStorage = (key: string): any => {
+export const loadFromLocalStorage = <T = unknown>(key: string): T | null => {
   try {
     const data = localStorage.getItem(key);
     return data ? JSON.parse(data) : null;

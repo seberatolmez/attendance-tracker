@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Student, AttendanceRecord, AttendanceData } from '@/types';
+import { AttendanceData } from '@/types';
+import Link from 'next/link';
 import { 
   loadFromLocalStorage, 
   saveToLocalStorage, 
@@ -19,7 +20,7 @@ export default function AttendancePage() {
 
   // Load data from localStorage on component mount
   useEffect(() => {
-    const savedData = loadFromLocalStorage('dorm-attendance-data');
+    const savedData = loadFromLocalStorage<AttendanceData>('dorm-attendance-data');
     if (savedData) {
       setAttendanceData(savedData);
     }
@@ -39,7 +40,7 @@ export default function AttendancePage() {
         record => record.studentId === studentId && record.date === selectedDate
       );
 
-      let newRecords = [...prev.records];
+      const newRecords = [...prev.records];
 
       if (existingRecordIndex >= 0) {
         // Update existing record
@@ -75,7 +76,7 @@ export default function AttendancePage() {
       
       // Clear saved status after 2 seconds
       setTimeout(() => setSaveStatus('idle'), 2000);
-    } catch (error) {
+    } catch {
       setSaveStatus('error');
       setTimeout(() => setSaveStatus('idle'), 3000);
     }
@@ -132,7 +133,7 @@ export default function AttendancePage() {
             <p className="text-gray-600 mb-6">
               Devam takibi yapabilmek için önce öğrenci eklemeniz gerekiyor.
             </p>
-            <a
+            <Link
               href="/"
               className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
             >
@@ -140,7 +141,7 @@ export default function AttendancePage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
               </svg>
               Ana Sayfaya Git
-            </a>
+            </Link>
           </div>
         </div>
       </div>

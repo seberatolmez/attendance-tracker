@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Student, AttendanceRecord, AttendanceData, AttendanceStats } from '@/types';
+import { Student, AttendanceData, AttendanceStats } from '@/types';
 import { 
   loadFromLocalStorage, 
   calculateStudentStats,
@@ -9,6 +9,7 @@ import {
   getDateRange
 } from '@/utils/dataUtils';
 import ReportGenerator from '@/components/ReportGenerator';
+import Link from 'next/link';
 
 export default function ReportsPage() {
   const [attendanceData, setAttendanceData] = useState<AttendanceData>({ students: [], records: [] });
@@ -18,7 +19,7 @@ export default function ReportsPage() {
 
   // Load data from localStorage on component mount
   useEffect(() => {
-    const savedData = loadFromLocalStorage('dorm-attendance-data');
+    const savedData = loadFromLocalStorage<AttendanceData>('dorm-attendance-data');
     if (savedData) {
       setAttendanceData(savedData);
       // Calculate initial stats for all records
@@ -97,7 +98,7 @@ export default function ReportsPage() {
             <p className="text-gray-600 mb-6">
               Rapor oluşturmadan önce öğrenci eklemeniz ve devam kaydı tutmanız gerekiyor.
             </p>
-            <a
+            <Link
               href="/"
               className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
             >
@@ -105,7 +106,7 @@ export default function ReportsPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
               </svg>
               Ana Sayfaya Git
-            </a>
+            </Link>
           </div>
         </div>
       </div>

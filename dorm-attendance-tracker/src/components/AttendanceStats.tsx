@@ -14,7 +14,6 @@ export default function AttendanceStats({ stats, totalStudents }: AttendanceStat
 
   const fullyPresentStudents = stats.filter(stat => stat.attendancePercentage === 100).length;
   const partiallyPresentStudents = stats.filter(stat => stat.attendancePercentage > 0 && stat.attendancePercentage < 100).length;
-  const absentStudents = stats.filter(stat => stat.attendancePercentage === 0).length;
 
   return (
     <div className="space-y-6">

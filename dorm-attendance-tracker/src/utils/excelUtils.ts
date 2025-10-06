@@ -1,5 +1,5 @@
 import * as XLSX from 'xlsx';
-import { Student, AttendanceRecord, AttendanceStats, ReportData } from '@/types';
+import { Student, ReportData } from '@/types';
 
 // Export students data to Excel
 export const exportStudentsToExcel = (students: Student[]): void => {
@@ -71,15 +71,15 @@ export const parseStudentExcelFile = (file: File): Promise<Student[]> => {
         const workbook = XLSX.read(data, { type: 'array' });
         const sheetName = workbook.SheetNames[0];
         const worksheet = workbook.Sheets[sheetName];
-        const jsonData = XLSX.utils.sheet_to_json(worksheet);
+        const jsonData = XLSX.utils.sheet_to_json(worksheet) as Record<string, unknown>[];
         
-        const students: Student[] = jsonData.map((row: any, index: number) => ({
+        const students: Student[] = jsonData.map((row, index: number) => ({
           id: `student-${Date.now()}-${index}`,
-          name: row['Name'] || row['name'] || row['Student Name'] || row['student_name'] || ''
+          name: (row['Name'] || row['name'] || row['Student Name'] || row['student_name'] || '') as string
         })).filter(student => student.name.trim().length > 0);
         
         resolve(students);
-      } catch (error) {
+      } catch {
         reject(new Error('Failed to parse Excel file'));
       }
     };
@@ -99,16 +99,16 @@ export const parseStudentJsonFile = (file: File): Promise<Student[]> => {
     
     reader.onload = (e) => {
       try {
-        const data = JSON.parse(e.target?.result as string);
+        const data = JSON.parse(e.target?.result as string) as Record<string, unknown>[];
         const students: Student[] = Array.isArray(data) 
-          ? data.map((student: any, index: number) => ({
-              id: student.id || `student-${Date.now()}-${index}`,
-              name: student.name || ''
+          ? data.map((student, index: number) => ({
+              id: (student.id as string) || `student-${Date.now()}-${index}`,
+              name: (student.name as string) || ''
             })).filter(student => student.name.trim().length > 0)
           : [];
         
         resolve(students);
-      } catch (error) {
+      } catch {
         reject(new Error('Invalid JSON format'));
       }
     };
